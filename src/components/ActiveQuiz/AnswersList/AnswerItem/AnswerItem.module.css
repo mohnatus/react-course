@@ -1,0 +1,12 @@
+.AnswerItem {
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background 400ms ease-in-out;
+}
+
+.AnswerItem:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
