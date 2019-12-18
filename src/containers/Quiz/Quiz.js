@@ -6,22 +6,36 @@ class Quiz extends Component {
     state = {
         quiz: [
             {
+                question: 'Кто твой любимый персонаж в Хвосте Феи?',
                 answers: [
                     {
-                        text: 'Ответ 1',
+                        text: 'Хэппи',
+                        id: 1
                     },
                     {
-                        text: 'Ответ 2'
+                        text: 'Эльза',
+                        id: 2
                     },
                     {
-                        text: 'Ответ 3'
+                        text: 'Нацу',
+                        id: 3
                     },
                     {
-                        text: 'Ответ 4'
+                        text: 'Грей',
+                        id: 4
+                    },
+                    {
+                        text: 'Люси',
+                        id: 5
                     }
-                ]
+                ],
+                correctAnswerId: 1
             }
         ]
+    }
+
+    onAnswerClickHandler = (answerId) => {
+        console.log('answer', answerId)
     }
 
     render() {
@@ -30,7 +44,9 @@ class Quiz extends Component {
                 <div className={classes.QuizWrapper}>
                     <h1>Ответьте на все вопросы</h1>
                     <ActiveQuiz 
-                        answers={this.state.quiz[0].answers} />
+                        question={this.state.quiz[0].question}
+                        answers={this.state.quiz[0].answers}
+                        onAnswerClick={this.onAnswerClickHandler} />
                 </div>
             </div>
         );
