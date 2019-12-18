@@ -5,6 +5,7 @@ import ActiveQuiz from "../../components/ActiveQuiz/ActiveQuiz";
 class Quiz extends Component {
     state = {
         activeQuestion: 0,
+        answerState: null, // { [id]: 'success' 'error' }
         quiz: [
             {
                 question: 'Кто твой любимый персонаж в Хвосте Феи?',
@@ -64,11 +65,43 @@ class Quiz extends Component {
     }
 
     onAnswerClickHandler = (answerId) => {
-        console.log('answer', answerId)
+        if (this.state.answerState) {
+            const key = Object.keys(this.state.answerState)[0];
+            if (this.state.answerState[key] === 'success') {
+                return;
+            }
+        }
 
-        this.setState({
-            activeQuestion: this.state.activeQuestion + 1
-        })
+        const question = this.state.quiz[this.state.activeQuestion];
+        if (answerId === question.correctAnswerId) {
+            this.setState({
+                answerState: {
+                    [answerId]: 'success'
+                }
+            });
+            let timeout = setTimeout(() => {
+                if (this.isQuizFinished()) {
+                    console.log('finished')
+                } else {
+                    this.setState({
+                        answerState: null,
+                        activeQuestion: this.state.activeQuestion + 1,
+                    });
+                }
+
+                clearTimeout(timeout);
+            }, 1000);
+        } else {
+            this.setState({
+                answerState: {
+                    [answerId]: 'error'
+                }
+            });
+        }
+    }
+
+    isQuizFinished() {
+        return this.state.activeQuestion + 1 >= this.state.quiz.length;
     }
 
     render() {
@@ -78,6 +111,7 @@ class Quiz extends Component {
                 <div className={classes.QuizWrapper}>
                     <h1>Ответьте на все вопросы</h1>
                     <ActiveQuiz 
+                        answerState={this.state.answerState}
                         quizLength={this.state.quiz.length}
                         answerIndex={this.state.activeQuestion + 1}
                         question={activeQuestion.question}
