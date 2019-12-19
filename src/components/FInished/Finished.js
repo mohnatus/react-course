@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Finished.module.css";
+import Button from "../UI/Button/Button"
 
 const Finished = props => {
     const correctCount = Object.keys(props.results)
@@ -28,7 +29,12 @@ const Finished = props => {
             </p>
 
             <div>
-                <button onClick={props.onRetry}>Повторить</button>
+                <Button 
+                    onClick={props.onRetry}
+                    type="primary">Повторить</Button>
+                <Button 
+                    
+                    type="success">Перейти в список тестов</Button>
             </div>
         </div>
     );
