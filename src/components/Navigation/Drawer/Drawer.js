@@ -2,16 +2,44 @@ import React, { Component } from "react";
 import classes from "./Drawer.module.css";
 import Mask from "../../UI/Mask/Mask";
 
+import { NavLink } from "react-router-dom";
+
 const links = [
-    1, 2, 3
+    {
+        text: 'Список',
+        to: '/',
+        exact: true
+    },
+    {
+        text: 'Авторизация',
+        to: '/auth',
+        exact: false
+    },
+    {
+        text: 'Создать тест',
+        to: '/quiz-creator',
+        exact: false
+    },
 ]
 
 class Drawer extends Component {
+
+    clickHandler = () => {
+        this.props.onClose();
+    }
+
     renderLinks() {
         return links.map((link, index) => {
             return (
                 <li key={index}>
-                    <a>Link {link}</a>
+                    <NavLink 
+                        to={link.to}
+                        exact={link.exact}
+                        activeClassName={classes.active}
+                        onClick={this.clickHandler}
+                    >   
+                        {link.text}
+                    </NavLink>
                 </li>
             )
         })
