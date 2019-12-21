@@ -1,23 +1,38 @@
 import React, { Component } from 'react'
 import classes from "./QuizList.module.css";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
+import axios from "../../axios/axios-quiz";
+import Loader from "../../components/UI/Loader/Loader"
 export default class QuizList extends Component {
+    state = {
+        quizes: [],
+        loaded: false
+    }
+
     renderQuizes() {
-        return [1, 2, 3].map((quiz, index) => {
+        return this.state.quizes.map((quiz, index) => {
             return (
                 <li key={index}>
-                    <NavLink to={'/quiz/' + quiz}>Тест #{quiz}</NavLink>
+                    <NavLink to={'/quiz/' + quiz.id}>{quiz.name}</NavLink>
                 </li>
             )
         })
     }
 
-    componentDidMount() {
-        axios.get('https://react-quiz-19ae1.firebaseio.com/quizes.json')
-            .then(response => {
-                console.log(response)
-            })
+    async componentDidMount() {
+        try {
+            const response = await axios.get('/quizes.json');
+            const quizes = Object.keys(response.data).map((key, index) => {
+                return { id: key, name: `Тест #${index}` }
+            });
+            this.setState({
+                quizes,
+                loaded: true
+            });
+        } catch(e) {
+            console.error(e);
+        }
+        
     }
 
     render() {
@@ -25,10 +40,13 @@ export default class QuizList extends Component {
             <div className={classes.QuizList}>
                 <div>
                     <h1>Список тестов</h1>
-
-                    <ul>
-                        { this.renderQuizes() }
-                    </ul>
+                    { 
+                        this.state.loaded 
+                            ?   <ul>
+                                    { this.renderQuizes() }
+                                </ul>
+                            :   <Loader />
+                    }
                 </div>
             </div>
         )
