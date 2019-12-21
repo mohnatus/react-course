@@ -43,10 +43,34 @@ export default class QuizCreator extends Component {
 
     addQuestionHandler = (event) => {
         event.preventDefault();
+
+        const quiz = this.state.quiz.concat();
+        const index = quiz.length + 1;
+
+        const { question, option1, option2, option3, option4 } = this.state.formControls; 
+
+        quiz.push({
+            question: question.value,
+            id: index,
+            correctAnswerId: this.state.correctAnswerId,
+            answers: [
+                { text: option1.value, id: option1.id },
+                { text: option2.value, id: option2.id },
+                { text: option3.value, id: option3.id },
+                { text: option4.value, id: option4.id },
+            ]
+        })
+
+        this.setState({
+            quiz,
+            formControls: createFormControls(),
+            correctAnswerId: 1,
+            isFormValid: false
+        })
     }
 
-    createQuizHandler = () => {
-
+    createQuizHandler = (event) => {
+        event.preventDefault();
     }
 
     changeHandler = (value, controlName) => {
