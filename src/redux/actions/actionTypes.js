@@ -10,3 +10,6 @@ export const RESTART_QUIZ = 'RESTART_QUIZ';
 
 export const CREATE_QUIZ_QUESTION = 'CREATE_QUIZ_QUESTION';
 export const CREATE_QUIZ = 'CREATE_QUIZ';
+
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const LOGOUT = 'LOGOUT';
