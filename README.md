@@ -1,3 +1,13 @@
+# Учебный проект
+
+Курс по ReactJS - https://coursehunter.net/course/reactjs-s-nulya-do-profi
+
+## Демо
+
+https://coursehunter.net/course/reactjs-s-nulya-do-profi
+
+## Create React App
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
