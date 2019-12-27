@@ -4,7 +4,7 @@
 
 ## Демо
 
-https://coursehunter.net/course/reactjs-s-nulya-do-profi
+https://react-quiz-19ae1.web.app/
 
 ## Create React App
 
